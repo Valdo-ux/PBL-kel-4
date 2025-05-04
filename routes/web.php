@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//ANJAY CUKURUKUKKK
-//ANJAY CUKURUKUKKK
-//ANJAY CUKURUKUKKK
 //LAPPET
 //PBL SERUUUU !!!!!!
 
