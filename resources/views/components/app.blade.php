@@ -23,7 +23,7 @@
     </main>
   </div>
 
-  <!-- Modal Edit Profil -->
+  <!-- Modal Edits Profil -->
   <x-modal.editProfil></x-modal.editProfil>
 
   <!-- Script -->
