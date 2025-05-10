@@ -1,53 +1,53 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\LandingpageController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\ProgramLatihanController;
+use App\Http\Controllers\ProgresController;
+use App\Http\Controllers\ResepMakanController;
 use Illuminate\Support\Facades\Route;
 //LAPPET
 //PBL SERUUUU !!!!!!
 
 
 
-//ROUTE DUMMY SEMENTARA YA BOSSQUUUEEEE
 
+//LANDING PAGES
+Route::get('/', [LandingpageController::class, 'home'])->name('landing');
+Route::prefix('landing')->controller(LandingpageController::class)->group(function (){
+    Route::get('/about', 'about')->name('about');
+    Route::get('/fitur', 'fitur')->name('fitur');
+});
 
-//INI HALAMAN DEPAN SEBELUM LOGIN
-Route::get('/', function () {
-    return view('pages.landing.landingpg');
-})->name('landing');
-Route::get('/about', function () {
-    return view('pages.landing.about');
-})->name('about');
-Route::get('/fitur', function () {
-    return view('pages.landing.fitur');
-})->name('fitur');
+//AUTENTIKASI
+Route::prefix("/")->controller(AuthController::class)->group(function(){
+    Route::get('/login', 'login')->name('login');
+    Route::get('/daftar', 'daftar')->name('register');
+});
+//BERANDA  
+Route::prefix('/beranda')->controller(BerandaController::class)->group(function(){
+    Route::get('/', 'beranda')->name('beranda');
+    Route::get('/trainer', 'beranda_trainer')->name('beranda-trainer');
+});
+//NOTIFIKASI 
+Route::prefix('/')->controller(NotifikasiController::class)->group(function(){
+    Route::get('/notifikasi', 'notifikasi')->name('notifikasi');
+});
+//PROGRAM LATIHAN
+Route::prefix('/programlatihan')->controller(ProgramLatihanController::class)->group(function(){
+    Route::get('/trainee', 'programlatihan')->name('latihan');
+    Route::get('/trainer', 'programlatihan_trainer')->name('latihan-trainer');
 
-//HALAMAN AUTENTIKASI LOGIN DAN DAFTAR
-Route::get('/login', function () {
-    return view('pages.auth.login');
-})->name('login');
-Route::get('/daftar', function () {
-    return view('pages.auth.daftar');
-})->name('register');
-
-
-//INI HALAMAN SETELAH LOGIN / SUDAH TERAUTENTIKASI
-Route::get('/beranda', function () {
-    return view('pages.beranda');
-})->name('beranda');
-Route::get('/notifikasi', function () {
-    $notifikasi = [
-        ["tanggal" => "19/04/2025", "pesan" => "Jangan lupa latihan Hari ini ya tetap semangat"],
-        ["tanggal" => "18/04/2025", "pesan" => "Jangan lupa latihan Hari ini ya tetap semangat"],
-        ["tanggal" => "17/04/2025", "pesan" => "Jangan lupa latihan Hari ini ya tetap semangat"],
-        ["tanggal" => "16/04/2025", "pesan" => "Jangan lupa latihan Hari ini ya tetap semangat"],
-      ];
-    return view('pages.notifikasi', compact('notifikasi'));
-})->name('notifikasi');
-Route::get('/latihan', function () {
-    return view('pages.programlatihan');
-})->name('latihan');
-Route::get('/progres', function () {
-    return view('pages.progres');
-})->name('progres');
-Route::get('/resep', function () {
-    return view('pages.resepmakan');
-})->name('resep');
+});
+//RESEP MAKAN
+Route::prefix('/resepmakan')->controller(ResepMakanController::class)->group(function(){
+    Route::get('/', 'resepmakan')->name('resep');
+    Route::get('/trainer', 'resepmakan_trainer')->name('resep-trainer');
+});
+//PROGRES
+Route::prefix('/progres')->controller(ProgresController::class)->group(function(){
+    Route::get('/', 'progres')->name('progres');
+    Route::get('/trainer', 'progres_trainer')->name('progres-trainer');
+});
